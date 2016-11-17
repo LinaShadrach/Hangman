@@ -12,14 +12,16 @@ namespace Hangman.Objects
     private List<string> _blanks = new List<string>{};
     private List<string> _lettersGuessed = new List<string>{};
     private int _guessesLeft;
-    private bool _gameOver;
+    private string _gameOver;
+    private bool _rightGuess;
 
     public State()
     {
       _computerWord = _wordBank[this.GetRandom()];
       _guessesLeft = 6;
-      _gameOver = false;
+      _gameOver = "no";
       _states.Add(this);
+      _rightGuess = false;
       _lettersGuessed.Add(" ");
     }
     public List<string> GetWordBank()
@@ -75,6 +77,7 @@ namespace Hangman.Objects
       {
         if(_currentLetter == _computerWord[x].ToString())
         {
+          _rightGuess = true;
           _blanks[x] = _currentLetter;
           System.Console.WriteLine(x);
         }
@@ -87,7 +90,16 @@ namespace Hangman.Objects
     }
     public void SetGuessesLeft()
     {
-      _guessesLeft--;
+      if(_rightGuess){
+        _rightGuess = false;
+      }
+      else{
+        _guessesLeft--;
+        if(_guessesLeft == 0)
+        {
+          _gameOver = "lose";
+        }
+      }
     }
 
     public List<string> GetLettersGuessed()
@@ -99,13 +111,17 @@ namespace Hangman.Objects
       _lettersGuessed.Add(_currentLetter);
     }
 
-    public bool GetGameOver()
+    public string GetGameOver()
     {
       return _gameOver;
     }
-    public void SetGameOver(bool gameOver)
+    public void CheckGameOver()
     {
-      _gameOver = true;
+      System.Console.WriteLine(_blankString);
+      if(_blankString.Replace(" ","") == _computerWord)
+      {
+        _gameOver = "win";
+      }
     }
 
     public string GetCurrentLetter()

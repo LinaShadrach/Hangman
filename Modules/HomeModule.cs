@@ -21,9 +21,11 @@ namespace Hangman
         string letter = Request.Form["letter"];
         state.SetCurrentLetter(letter);
         state.SetLettersGuessed();
-        state.SetGuessesLeft();
         state.CheckLetter();
+        state.SetGuessesLeft();
         state.SetBlankString();
+        state.CheckGameOver();
+        System.Console.WriteLine(state.GetGameOver());
         return View["index.cshtml", state];
       };
     }
