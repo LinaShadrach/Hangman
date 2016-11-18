@@ -46,11 +46,7 @@ namespace Hangman.Objects
     {
       return _states;
     }
-    public static void SaveState(State state)
-    {
-      _states.Add(state);
-    }
-
+    
     public List<string> GetBlanks()
     {
       return _blanks;

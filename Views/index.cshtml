@@ -8,9 +8,33 @@
 
     <h1>Hangman</h1>
     <h4>You have @Model.GetGuessesLeft() guesses left</h4>
-    <p>Letters guessed:</p>
-    @foreach(string letter in Model.GetLettersGuessed()){
-      <h5>@letter</h5>
+    @if(Model.GetGuessesLeft()== 6)
+    {
+      <img src="/Content/img/galley.gif" alt="" />
+    }
+    @if(Model.GetGuessesLeft()== 5)
+    {
+      <img src="/Content/img/head.gif" alt="" />
+    }
+    @if(Model.GetGuessesLeft()== 4)
+    {
+      <img src="/Content/img/body.gif" alt="" />
+    }
+    @if(Model.GetGuessesLeft()== 3)
+    {
+      <img src="/Content/img/leg1.gif" alt="" />
+    }
+    @if(Model.GetGuessesLeft()== 2)
+    {
+      <img src="/Content/img/leg2.gif" alt="" />
+    }
+    @if(Model.GetGuessesLeft()== 1)
+    {
+      <img src="/Content/img/arm1.gif" alt="" />
+    }
+    @if(Model.GetGuessesLeft()== 0)
+    {
+      <img src="/Content/img/arm2.gif" alt="" />
     }
     <p>@Model.GetBlankString()</p>
     @if(Model.GetGameOver() == "no"){
@@ -19,6 +43,10 @@
         <input type="text" name="letter" placeholder="letter">
         <button type="submit" name="button">Guess</button>
       </form>
+    }
+    <p>Letters guessed:</p>
+    @foreach(string letter in Model.GetLettersGuessed()){
+      <h5>@letter</h5>
     }
     @if(Model.GetGameOver() != "no")
     {
